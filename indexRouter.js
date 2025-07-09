@@ -1,8 +1,10 @@
 const express = require("express");
 const mime = require("mime-types");
+const getS3PutLink = require("./getS3PutLink");
+
 const router = express.Router();
 
-router.get("/get-put-link", (req, res) => {
+router.post("/get-put-link", async (req, res) => {
   // can the user upload this file
   // put link to upload from browser
 
@@ -17,6 +19,15 @@ router.get("/get-put-link", (req, res) => {
   const mimeType = mime.lookup(fileName);
 
   // getS3PutLink
+  const signedLink = await getS3PutLink(uniqueKeyName, mimeType); // default region and bucket
+  console.log({ signedLink });
+
+  // express sends back the link and waits for confirmation from the upload
+  res.json({
+    signedLink,
+    mimeType,
+    uniqueKeyName,
+  });
 
   res.json("Test");
 });

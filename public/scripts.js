@@ -43,6 +43,7 @@ const addFile = async (e) => {
       config.headers = {
         "content-type": postData.mimeType,
       };
+      // this is browser util for upload
       config.onUploadProgress = (e) => updateProgressBar(e);
       //aws is expecting a put http verb
       //file is the entire file... we didn't have to send to express
