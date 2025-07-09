@@ -65,7 +65,8 @@ const addFile = async (e) => {
     key: postData.uniqueKeyName,
   };
   const expressResp = await axios.post(finalUrlToExpress, finalData);
-  const imgLink = expressResp.data;
+
+  const imgLink = expressResp.data.link;
   document.getElementById(
     "current-image"
   ).innerHTML = `<img src="${imgLink}" width="100%" />`;
